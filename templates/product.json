@@ -532,41 +532,57 @@
       "blocks": {
         "filter_fit": {
           "type": "filter-tag",
-          "settings": { "label": "Fit" }
+          "settings": {
+            "label": "Fit"
+          }
         },
         "filter_fabric": {
           "type": "filter-tag",
-          "settings": { "label": "Fabric" }
+          "settings": {
+            "label": "Fabric"
+          }
         },
         "filter_weight": {
           "type": "filter-tag",
-          "settings": { "label": "Weight" }
+          "settings": {
+            "label": "Weight"
+          }
         },
         "filter_boxer": {
           "type": "filter-tag",
-          "settings": { "label": "Boxer" }
+          "settings": {
+            "label": "Boxer"
+          }
         },
         "filter_color": {
           "type": "filter-tag",
-          "settings": { "label": "Color" }
+          "settings": {
+            "label": "Color"
+          }
         },
         "filter_patterns": {
           "type": "filter-tag",
-          "settings": { "label": "Patterns" }
+          "settings": {
+            "label": "Patterns"
+          }
         },
         "filter_length": {
           "type": "filter-tag",
-          "settings": { "label": "Length" }
+          "settings": {
+            "label": "Length"
+          }
         },
         "filter_material": {
           "type": "filter-tag",
-          "settings": { "label": "Material" }
+          "settings": {
+            "label": "Material"
+          }
         },
         "review_1": {
           "type": "review-card",
           "settings": {
             "reviewer_name": "Adam H.",
-            "reviewer_date": "11/13/20",
+            "reviewer_date": "11\/13\/20",
             "is_verified": true,
             "rating_value": 5,
             "review_title": "That makes me feel good",
@@ -583,7 +599,7 @@
           "type": "review-card",
           "settings": {
             "reviewer_name": "Dennis K.",
-            "reviewer_date": "11/13/20",
+            "reviewer_date": "11\/13\/20",
             "is_verified": true,
             "rating_value": 5,
             "review_title": "Great Thanks. They don't bag",
