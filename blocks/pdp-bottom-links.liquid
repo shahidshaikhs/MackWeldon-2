@@ -1,0 +1,129 @@
+{% doc %}
+  PDP Bottom Links Block
+
+  Renders promo cards from product.metafields.custom.bottom_links (list of pdp_link metaobjects).
+  Each card shows an icon, title, description, and a CTA link.
+
+  @example
+  {% content_for 'block', type: 'pdp-bottom-links', id: 'bottom-links' %}
+{% enddoc %}
+
+{% liquid
+  assign product = closest.product
+  assign bottom_links = product.metafields.custom.bottom_links.value
+%}
+
+{% if bottom_links != blank and bottom_links.size > 0 %}
+  <div class="pdp-bottom-links" {{ block.shopify_attributes }}>
+    {%- for item in bottom_links -%}
+      <div class="pdp-bottom-links__card">
+        {% if item.logo.value != blank %}
+          <div class="pdp-bottom-links__icon">
+            {{ item.logo.value | image_url: width: 112 | image_tag: loading: 'lazy', class: 'pdp-bottom-links__icon-img' }}
+          </div>
+        {% endif %}
+        <div class="pdp-bottom-links__text">
+          {% if item.title.value != blank %}
+            <p class="pdp-bottom-links__title">{{ item.title.value }}</p>
+          {% endif %}
+          {% if item.description.value != blank %}
+            <p class="pdp-bottom-links__description">{{ item.description.value }}</p>
+          {% endif %}
+          {% if item.link.value != blank and item.link_label.value != blank %}
+            <a href="{{ item.link.value }}" class="pdp-bottom-links__cta">
+              {{ item.link_label.value }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+{% endif %}
+
+{% stylesheet %}
+  .pdp-bottom-links {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .pdp-bottom-links__card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+    background-color: #F7F7F7;
+    padding: 16px;
+    min-width: 0;
+  }
+
+  .pdp-bottom-links__icon {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+  }
+
+  .pdp-bottom-links__icon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .pdp-bottom-links__text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .pdp-bottom-links__title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 19px;
+    color: var(--color-foreground);
+  }
+
+  .pdp-bottom-links__description {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 19px;
+    color: #6A6A6A;
+  }
+
+  .pdp-bottom-links__cta {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 23px;
+    text-decoration: underline;
+    text-transform: capitalize;
+    color: #0074E0;
+  }
+
+  .pdp-bottom-links__cta:hover {
+    opacity: 0.8;
+  }
+
+  @media screen and (max-width: 749px) {
+    .pdp-bottom-links {
+      flex-direction: column;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.pdp_bottom_links",
+  "tag": null,
+  "settings": [],
+  "presets": [
+    {
+      "name": "t:names.pdp_bottom_links",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

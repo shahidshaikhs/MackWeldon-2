@@ -1,0 +1,403 @@
+{% doc %}
+  Subscription Picker Block
+
+  Renders selling plan selection UI with one-time purchase vs subscription radio buttons
+  and delivery frequency options. Updates the product form's selling_plan hidden input.
+
+  @example
+  {% content_for 'block', type: 'subscription-picker', id: 'subscription-picker' %}
+{% enddoc %}
+
+{% liquid
+  assign product = closest.product
+  assign selling_plan_groups = product.selling_plan_groups
+%}
+
+{% if selling_plan_groups.size > 0 %}
+  {% liquid
+    assign first_group = selling_plan_groups.first
+    assign first_selling_plan = first_group.selling_plans.first
+    assign selected_variant = product.selected_or_first_available_variant
+
+    assign original_price = selected_variant.price
+    assign compare_price = selected_variant.compare_at_price
+
+    # Calculate subscription price from first selling plan's price adjustment
+    assign sp_price_adjustment = first_selling_plan.price_adjustments.first
+    assign savings_amount = 0
+    assign subscription_price = original_price
+
+    if sp_price_adjustment.value_type == 'percentage'
+      assign discount_pct = sp_price_adjustment.value
+      assign savings_amount = original_price | times: discount_pct | divided_by: 100
+      assign subscription_price = original_price | minus: savings_amount
+    elsif sp_price_adjustment.value_type == 'fixed_amount'
+      assign savings_amount = sp_price_adjustment.value
+      assign subscription_price = original_price | minus: savings_amount
+    elsif sp_price_adjustment.value_type == 'price'
+      assign subscription_price = sp_price_adjustment.value
+      assign savings_amount = original_price | minus: subscription_price
+    endif
+  %}
+
+  <subscription-picker
+    class="subscription-picker"
+    data-section-id="{{ section.id }}"
+    {{ block.shopify_attributes }}
+  >
+    {%- comment -%} One Time Purchase Option {%- endcomment -%}
+    <label class="subscription-picker__option subscription-picker__option--active" data-option="one-time" on:click="/handleOptionClick">
+      <input
+        type="radio"
+        name="purchase_type_{{ block.id }}"
+        value="one-time"
+        checked
+        class="subscription-picker__radio visually-hidden"
+        ref="oneTimeRadio"
+      >
+      <span class="subscription-picker__radio-indicator"></span>
+      <span class="subscription-picker__option-label">
+        {{ block.settings.one_time_label }}
+      </span>
+      <span class="subscription-picker__option-price">
+        {{ original_price | money }}
+      </span>
+    </label>
+
+    {%- comment -%} Subscribe & Save Option {%- endcomment -%}
+    <label class="subscription-picker__option" data-option="subscribe" on:click="/handleOptionClick">
+      <input
+        type="radio"
+        name="purchase_type_{{ block.id }}"
+        value="subscribe"
+        class="subscription-picker__radio visually-hidden"
+        ref="subscribeRadio"
+      >
+      <span class="subscription-picker__radio-indicator"></span>
+      <span class="subscription-picker__option-label subscription-picker__option-label--bold">
+        {{ block.settings.subscribe_label }}
+        {% if savings_amount > 0 %}
+          {{ savings_amount | money }}
+        {% endif %}
+      </span>
+      <span class="subscription-picker__option-prices">
+        {% if savings_amount > 0 %}
+          <span class="subscription-picker__price-original">{{ original_price | money }}</span>
+        {% endif %}
+        <span class="subscription-picker__price-discounted">{{ subscription_price | money }}</span>
+      </span>
+    </label>
+
+    {%- comment -%} Subscription Details (shown when subscribe is selected) {%- endcomment -%}
+    <div class="subscription-picker__details" ref="subscriptionDetails" style="display: none;">
+      <ul class="subscription-picker__benefits">
+        <li class="subscription-picker__benefit">
+          <span class="subscription-picker__benefit-dot"></span>
+          {{ 'sections.subscription_picker.pause_cancel' | t }}
+        </li>
+        <li class="subscription-picker__benefit">
+          <span class="subscription-picker__benefit-dot"></span>
+          {{ 'sections.subscription_picker.new_colour' | t }}
+        </li>
+      </ul>
+
+      <p class="subscription-picker__frequency-label">{{ 'sections.subscription_picker.delivery_every' | t }}</p>
+
+      <div class="subscription-picker__frequencies" ref="frequencyButtons">
+        {% for plan in first_group.selling_plans %}
+          <button
+            type="button"
+            class="subscription-picker__frequency-btn{% if forloop.first %} subscription-picker__frequency-btn--active{% endif %}"
+            data-selling-plan-id="{{ plan.id }}"
+            on:click="/handleFrequencyClick"
+          >
+            {{ plan.name }}
+          </button>
+        {% endfor %}
+      </div>
+    </div>
+
+    <input type="hidden" name="selling_plan" value="" ref="sellingPlanInput">
+  </subscription-picker>
+{% endif %}
+
+{% stylesheet %}
+  .subscription-picker {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+  }
+
+  .subscription-picker__option {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border: 0.5px solid #6A6A6A;
+    cursor: pointer;
+    position: relative;
+    background: #FFFFFF;
+  }
+
+  .subscription-picker__option + .subscription-picker__option {
+    margin-top: -0.5px;
+  }
+
+  .subscription-picker__option--active[data-option="subscribe"] {
+    border: 1px solid #0074E0;
+    z-index: 1;
+  }
+
+  .subscription-picker__radio-indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #6A6A6A;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .subscription-picker__option--active .subscription-picker__radio-indicator {
+    border-color: #0074E0;
+  }
+
+  .subscription-picker__option--active .subscription-picker__radio-indicator::after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #0074E0;
+  }
+
+  .subscription-picker__option-label {
+    flex: 1;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 23px;
+    color: var(--color-foreground);
+  }
+
+  .subscription-picker__option-label--bold {
+    font-weight: 500;
+  }
+
+  .subscription-picker__option-price {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 23px;
+    color: #6A6A6A;
+    text-align: right;
+  }
+
+  .subscription-picker__option-prices {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    text-align: right;
+  }
+
+  .subscription-picker__price-original {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 23px;
+    color: #6A6A6A;
+    text-decoration: line-through;
+  }
+
+  .subscription-picker__price-discounted {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 23px;
+    color: #0074E0;
+  }
+
+  .subscription-picker__details {
+    padding: 16px;
+    border: 1px solid #0074E0;
+    border-top: 0;
+    background: #FFFFFF;
+  }
+
+  .subscription-picker__benefits {
+    list-style: none;
+    margin: 0 0 16px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .subscription-picker__benefit {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 19px;
+    color: var(--color-foreground);
+  }
+
+  .subscription-picker__benefit-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: var(--color-foreground);
+    flex-shrink: 0;
+  }
+
+  .subscription-picker__frequency-label {
+    margin: 0 0 8px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 19px;
+    color: var(--color-foreground);
+  }
+
+  .subscription-picker__frequencies {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .subscription-picker__frequency-btn {
+    flex: 1;
+    padding: 10px 8px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 19px;
+    text-align: center;
+    color: #6A6A6A;
+    background: #FFFFFF;
+    border: 0.5px solid #6A6A6A;
+    cursor: pointer;
+  }
+
+  .subscription-picker__frequency-btn--active {
+    background-color: #0074E0;
+    color: #FFFFFF;
+    font-weight: 500;
+    border-color: #0074E0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .subscription-picker__frequencies {
+      flex-wrap: wrap;
+    }
+
+    .subscription-picker__frequency-btn {
+      flex: 1 1 calc(50% - 4px);
+      min-width: calc(50% - 4px);
+    }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+import { Component } from '@theme/component';
+
+class SubscriptionPicker extends Component {
+  connectedCallback() {
+    super.connectedCallback();
+    this.sectionId = this.dataset.sectionId;
+  }
+
+  handleOptionClick(event) {
+    const label = event.currentTarget;
+    const option = label.dataset.option;
+    const allOptions = this.querySelectorAll('.subscription-picker__option');
+
+    for (const opt of allOptions) {
+      opt.classList.remove('subscription-picker__option--active');
+    }
+    label.classList.add('subscription-picker__option--active');
+
+    const radio = label.querySelector('input[type="radio"]');
+    if (radio) {
+      radio.checked = true;
+    }
+
+    if (option === 'subscribe') {
+      if (this.refs.subscriptionDetails) {
+        this.refs.subscriptionDetails.style.display = '';
+      }
+      const activeFreqBtn = this.querySelector('.subscription-picker__frequency-btn--active');
+      if (activeFreqBtn) {
+        this.updateSellingPlan(activeFreqBtn.dataset.sellingPlanId);
+      }
+    } else {
+      if (this.refs.subscriptionDetails) {
+        this.refs.subscriptionDetails.style.display = 'none';
+      }
+      this.updateSellingPlan('');
+    }
+  }
+
+  handleFrequencyClick(event) {
+    const button = event.currentTarget;
+    const allBtns = this.querySelectorAll('.subscription-picker__frequency-btn');
+
+    for (const btn of allBtns) {
+      btn.classList.remove('subscription-picker__frequency-btn--active');
+    }
+    button.classList.add('subscription-picker__frequency-btn--active');
+
+    this.updateSellingPlan(button.dataset.sellingPlanId);
+  }
+
+  updateSellingPlan(planId) {
+    if (this.refs.sellingPlanInput) {
+      this.refs.sellingPlanInput.value = planId;
+    }
+
+    const productForm = document.querySelector(
+      `product-form-component[data-section-id="${this.sectionId}"] form`
+    );
+
+    if (productForm) {
+      let hiddenInput = productForm.querySelector('input[name="selling_plan"]');
+
+      if (!hiddenInput) {
+        hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'selling_plan';
+        productForm.appendChild(hiddenInput);
+      }
+
+      hiddenInput.value = planId;
+    }
+  }
+}
+
+customElements.define('subscription-picker', SubscriptionPicker);
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "t:names.subscription_picker",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "one_time_label",
+      "label": "One time label",
+      "default": "One Time Purchase"
+    },
+    {
+      "type": "text",
+      "id": "subscribe_label",
+      "label": "Subscribe label",
+      "default": "Subscribe & Save"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.subscription_picker",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

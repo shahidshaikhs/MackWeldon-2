@@ -454,7 +454,9 @@
     "subcategory_link": "Subcategory link",
     "grid_banner": "Grid banner",
     "custom_header": "Custom header",
-    "mega_menu_promo": "Mega menu promo"
+    "mega_menu_promo": "Mega menu promo",
+    "pdp_bottom_links": "PDP bottom links",
+    "subscription_picker": "Subscription picker"
   },
   "options": {
     "above_carousel": "Above carousel",
