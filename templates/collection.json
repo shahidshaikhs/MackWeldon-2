@@ -71,7 +71,7 @@
           "settings": {
             "position": 3,
             "size": "single",
-            "image": "shopify://shop_images/desktop-slice-hero-desktop-hero-3954.png",
+            "image": "shopify:\/\/shop_images\/desktop-slice-hero-desktop-hero-3954.png",
             "heading": "THE POLO SHOP IS OPEN",
             "body_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             "button_text": "SHOP NOW"
@@ -83,7 +83,7 @@
             "position": 10,
             "size": "double",
             "eyebrow": "TIS THE SEASON",
-            "image": "shopify://shop_images/desktop-slice-hero-desktop-hero-3954.png",
+            "image": "shopify:\/\/shop_images\/desktop-slice-hero-desktop-hero-3954.png",
             "heading": "THE POLO SHOP IS OPEN",
             "body_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             "button_text": "SHOP NOW"
