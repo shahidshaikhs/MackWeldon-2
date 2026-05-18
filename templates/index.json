@@ -1,0 +1,48 @@
+{
+  "sections": {
+    "review_carousel": {
+      "type": "review-carousel",
+      "settings": {
+        "heading": "WHAT PEOPLE SAY",
+        "color_scheme": "scheme-1",
+        "star_color": "#0074E0",
+        "empty_star_color": "#D9D9D9",
+        "columns_gap": 16,
+        "section_width": "page-width",
+        "padding-block-start": 36,
+        "padding-block-end": 36
+      },
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "product_image": "shopify://shop_images/rectangle-545-mobile-hero-I396827411619.png",
+            "product_name": "ACE Pullover Hooded Sweatshirt",
+            "star_rating": 5,
+            "review_count": "40",
+            "review_text": "\"This is exactly what was described and what I was looking for...it washed and dried very well. My husband loves it!\"",
+            "reviewer_name": "Carol H."
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "product_image": "shopify://shop_images/rectangle-545-desktop-hero-I39602677471.png",
+            "product_name": "18-Hour Jersey Trunk",
+            "star_rating": 5,
+            "review_count": "40",
+            "review_text": "\"I love every single piece of clothing I buy from Mack and Weldon, especially the underwear.\"",
+            "reviewer_name": "Yanny F."
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2"
+      ]
+    }
+  },
+  "order": [
+    "review_carousel"
+  ]
+}

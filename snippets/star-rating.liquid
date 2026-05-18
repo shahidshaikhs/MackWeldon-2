@@ -1,0 +1,37 @@
+{% doc %}
+  Star Rating
+
+  Renders a row of 5 star icons with configurable fill colors and an optional review count.
+
+  @param {number} rating - Number of filled stars (0-5), required
+  @param {string} [count] - Review count text shown after stars
+  @param {string} [star_color] - Hex color for filled stars (default: '#0074E0')
+  @param {string} [empty_color] - Hex color for empty stars (default: '#D9D9D9')
+
+  @example
+  {% render 'star-rating', rating: 5, count: '40', star_color: '#0074E0', empty_color: '#D9D9D9' %}
+{% enddoc %}
+
+{% liquid
+  assign rating = rating | default: 0
+  assign star_color = star_color | default: '#0074E0'
+  assign empty_color = empty_color | default: '#D9D9D9'
+%}
+
+<div class="star-rating">
+  <div class="star-rating__stars">
+    {%- for i in (1..5) -%}
+      {%- if i <= rating -%}
+        {%- assign fill = star_color -%}
+      {%- else -%}
+        {%- assign fill = empty_color -%}
+      {%- endif -%}
+      <svg class="star-rating__icon" width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M9.5 0L11.6329 6.56434H18.535L12.9511 10.6213L15.084 17.1857L9.5 13.1287L3.91604 17.1857L6.04892 10.6213L0.464963 6.56434H7.36712L9.5 0Z" fill="{{ fill }}"/>
+      </svg>
+    {%- endfor -%}
+  </div>
+  {%- if count != blank -%}
+    <span class="star-rating__count">{{ count }}</span>
+  {%- endif -%}
+</div>
