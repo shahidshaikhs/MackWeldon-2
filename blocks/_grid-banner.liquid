@@ -1,0 +1,109 @@
+{% doc %}
+  Grid Banner
+
+  A settings container block for promotional banners within the collection product grid.
+  The template is intentionally empty — rendering is handled by the parent section
+  via the grid-banner-content snippet.
+
+  @example
+  {% content_for 'block', type: '_grid-banner', id: 'banner-single' %}
+{% enddoc %}
+
+{% schema %}
+{
+  "name": "t:names.grid_banner",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:content.layout"
+    },
+    {
+      "type": "number",
+      "id": "position",
+      "label": "t:settings.grid_position",
+      "info": "t:info.grid_position_info",
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "size",
+      "label": "t:settings.banner_size",
+      "options": [
+        {
+          "value": "single",
+          "label": "t:options.banner_size_single"
+        },
+        {
+          "value": "double",
+          "label": "t:options.banner_size_double"
+        }
+      ],
+      "default": "single"
+    },
+    {
+      "type": "header",
+      "content": "t:content.media"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:settings.image"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "t:settings.logo"
+    },
+    {
+      "type": "header",
+      "content": "t:content.text"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:settings.eyebrow"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:settings.heading"
+    },
+    {
+      "type": "textarea",
+      "id": "body_text",
+      "label": "t:settings.body_text"
+    },
+    {
+      "type": "header",
+      "content": "t:content.buttons"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "t:settings.button_text",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "t:settings.button_link"
+    },
+    {
+      "type": "header",
+      "content": "t:content.colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.grid_banner"
+    }
+  ]
+}
+{% endschema %}

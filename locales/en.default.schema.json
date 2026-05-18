@@ -237,7 +237,8 @@
     "video_autoplay": "Videos will be muted by default",
     "video_external": "Use a YouTube or Vimeo URL",
     "pills_usage": "Used for applied filters, discount codes, and search suggestions",
-    "media_type_info": "Features are populated from your menu links"
+    "media_type_info": "Features are populated from your menu links",
+    "grid_position_info": "Position in the product grid where the banner appears (counting products and banners)"
   },
   "names": {
     "column": "Column",
@@ -445,7 +446,8 @@
     "comparison_slider": "Comparison slider",
     "value_prop": "Value prop",
     "value_prop_item": "Value prop item",
-    "subcategory_link": "Subcategory link"
+    "subcategory_link": "Subcategory link",
+    "grid_banner": "Grid banner"
   },
   "options": {
     "above_carousel": "Above carousel",
@@ -760,7 +762,9 @@
     "wide": "Wide",
     "youtube": "YouTube",
     "with_hints": "With hints",
-    "below_media": "Below media"
+    "below_media": "Below media",
+    "banner_size_single": "Single (1 column)",
+    "banner_size_double": "Double (2 columns)"
   },
   "settings": {
     "accordion": "Accordion",
@@ -1215,7 +1219,13 @@
     "x_position": "Horizontal position",
     "y_position": "Vertical position",
     "link_label": "Label",
-    "link_url": "URL"
+    "link_url": "URL",
+    "grid_position": "Grid position",
+    "banner_size": "Size",
+    "eyebrow": "Eyebrow",
+    "body_text": "Body text",
+    "button_text": "Button text",
+    "button_link": "Button link"
   },
   "text_defaults": {
     "accordion_heading": "Accordion heading",

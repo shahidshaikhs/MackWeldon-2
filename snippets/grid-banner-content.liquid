@@ -1,0 +1,104 @@
+{% doc %}
+  Grid Banner Content
+
+  Renders the inner HTML of a grid banner for the collection product grid.
+  Called by sections/main-collection.liquid when injecting banners into the grid.
+
+  @param {object} block - The grid banner block object (required)
+
+  @example
+  {% render 'grid-banner-content', block: banner %}
+{% enddoc %}
+
+{% liquid
+  assign block = block | default: empty
+  unless block != empty
+    break
+  endunless
+
+  assign banner_size = block.settings.size | default: 'single'
+  assign heading = block.settings.heading
+  assign body_text = block.settings.body_text
+  assign button_text = block.settings.button_text
+  assign button_link = block.settings.button_link
+  assign eyebrow = block.settings.eyebrow
+  assign logo = block.settings.logo
+  assign image = block.settings.image
+%}
+
+{% if image %}
+  {% liquid
+    if banner_size == 'double'
+      assign sizes_val = '(min-width: 750px) 50vw, 100vw'
+    else
+      assign sizes_val = '(min-width: 750px) 25vw, 100vw'
+    endif
+  %}
+  {{
+    image
+    | image_url: width: image.width
+    | image_tag:
+      sizes: sizes_val,
+      widths: '375,550,750,1100,1500',
+      loading: 'lazy',
+      class: 'grid-banner__image',
+      alt: image.alt
+  }}
+{% endif %}
+
+<div class="grid-banner__overlay grid-banner__overlay--{{ banner_size }}">
+  <div class="grid-banner__content grid-banner__content--{{ banner_size }}">
+    {% if banner_size == 'single' %}
+      {% if logo %}
+        <div class="grid-banner__logo">
+          {{
+            logo
+            | image_url: width: 200
+            | image_tag:
+              loading: 'lazy',
+              class: 'grid-banner__logo-img',
+              alt: logo.alt
+          }}
+        </div>
+      {% endif %}
+
+      {% if heading != blank %}
+        <h2 class="grid-banner__heading grid-banner__heading--single">{{ heading | escape }}</h2>
+      {% endif %}
+
+      {% if body_text != blank %}
+        <p class="grid-banner__body grid-banner__body--single">{{ body_text | escape }}</p>
+      {% endif %}
+
+      {% if button_text != blank %}
+        <a
+          {% if button_link != blank %}href="{{ button_link }}"{% endif %}
+          class="grid-banner__button"
+        >
+          {{- button_text | escape -}}
+        </a>
+      {% endif %}
+    {% else %}
+      {% if eyebrow != blank %}
+        <p class="grid-banner__eyebrow">{{ eyebrow | escape }}</p>
+      {% endif %}
+
+      {% if heading != blank %}
+        <h2 class="grid-banner__heading grid-banner__heading--double">{{ heading | escape }}</h2>
+      {% endif %}
+
+      {% if body_text != blank %}
+        <p class="grid-banner__body grid-banner__body--double">{{ body_text | escape }}</p>
+      {% endif %}
+
+      {% if button_text != blank %}
+        <a
+          {% if button_link != blank %}href="{{ button_link }}"{% endif %}
+          class="grid-banner__button"
+        >
+          {{- button_text | escape -}}
+        </a>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>

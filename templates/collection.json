@@ -65,6 +65,29 @@
           "settings": {
             "label": "Accessories"
           }
+        },
+        "banner_single": {
+          "type": "_grid-banner",
+          "settings": {
+            "position": 3,
+            "size": "single",
+            "image": "shopify://shop_images/desktop-slice-hero-desktop-hero-3954.png",
+            "heading": "THE POLO SHOP IS OPEN",
+            "body_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "button_text": "SHOP NOW"
+          }
+        },
+        "banner_double": {
+          "type": "_grid-banner",
+          "settings": {
+            "position": 10,
+            "size": "double",
+            "eyebrow": "TIS THE SEASON",
+            "image": "shopify://shop_images/desktop-slice-hero-desktop-hero-3954.png",
+            "heading": "THE POLO SHOP IS OPEN",
+            "body_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "button_text": "SHOP NOW"
+          }
         }
       },
       "block_order": [
@@ -75,7 +98,9 @@
         "link_pants",
         "link_joggers",
         "link_shorts",
-        "link_accessories"
+        "link_accessories",
+        "banner_single",
+        "banner_double"
       ]
     }
   },

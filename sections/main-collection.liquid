@@ -54,8 +54,36 @@
     {% endif %}
 
     {% paginate collection.products by products_per_page %}
+      {% liquid
+        assign grid_banners = section.blocks | where: 'type', '_grid-banner'
+      %}
       {% capture children %}
+        {% liquid
+          assign grid_position = 1
+        %}
         {% for product in collection.products %}
+          {% comment %} Render any grid banners that should appear before this product {% endcomment %}
+          {% assign keep_checking_banners = true %}
+          {% for attempt in (1..5) %}
+            {% if keep_checking_banners %}
+              {% assign keep_checking_banners = false %}
+              {% for banner in grid_banners %}
+                {% assign banner_pos = banner.settings.position | default: 0 %}
+                {% if banner_pos == grid_position %}
+                  <li
+                    class="product-grid__item grid-banner grid-banner--{{ banner.settings.size }}"
+                    {{ banner.shopify_attributes }}
+                  >
+                    {% render 'grid-banner-content', block: banner %}
+                  </li>
+                  {% assign grid_position = grid_position | plus: 1 %}
+                  {% assign keep_checking_banners = true %}
+                  {% break %}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          {% endfor %}
+
           <li
             id="{{ section.id }}-{{ product.id }}"
             class="product-grid__item product-grid__item--{{ forloop.index0 }}"
@@ -67,6 +95,20 @@
             {% content_for 'block', type: '_product-card', id: 'product-card', closest.product: product %}
             {% # theme-check-enable %}
           </li>
+          {% assign grid_position = grid_position | plus: 1 %}
+        {% endfor %}
+
+        {% comment %} Render any remaining banners positioned after the last product {% endcomment %}
+        {% for banner in grid_banners %}
+          {% assign banner_pos = banner.settings.position | default: 0 %}
+          {% if banner_pos >= grid_position %}
+            <li
+              class="product-grid__item grid-banner grid-banner--{{ banner.settings.size }}"
+              {{ banner.shopify_attributes }}
+            >
+              {% render 'grid-banner-content', block: banner %}
+            </li>
+          {% endif %}
         {% endfor %}
       {% endcapture %}
 
@@ -211,6 +253,175 @@
     .product-grid-container [ref="viewMoreNext"] + .button,
     .product-grid-container .load-more-button {
       max-width: 343px;
+    }
+  }
+
+  /* Grid Banner styles */
+  .grid-banner {
+    position: relative;
+    overflow: hidden;
+    background-color: #F7F7F7;
+    min-height: 400px;
+  }
+
+  .grid-banner__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .grid-banner__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+  }
+
+  .grid-banner__overlay--single {
+    justify-content: center;
+    align-items: flex-end;
+    padding: 24px;
+  }
+
+  .grid-banner__overlay--double {
+    justify-content: center;
+    align-items: center;
+    padding: 32px;
+  }
+
+  .grid-banner__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .grid-banner__content--single {
+    gap: 8px;
+    max-width: 292px;
+  }
+
+  .grid-banner__content--double {
+    gap: 12px;
+    max-width: 324px;
+  }
+
+  .grid-banner__logo {
+    display: flex;
+    justify-content: center;
+  }
+
+  .grid-banner__logo-img {
+    height: 15px;
+    width: auto;
+  }
+
+  .grid-banner__eyebrow {
+    font-family: var(--font-body--family);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 19px;
+    text-transform: uppercase;
+    text-align: center;
+    color: #001237;
+    margin: 0;
+  }
+
+  .grid-banner__heading {
+    font-family: var(--font-heading--family);
+    font-weight: 500;
+    text-transform: uppercase;
+    text-align: center;
+    color: #001237;
+    margin: 0;
+  }
+
+  .grid-banner__heading--single {
+    font-size: 36px;
+    line-height: 40px;
+    letter-spacing: 0.18px;
+  }
+
+  .grid-banner__heading--double {
+    font-size: 56px;
+    line-height: 60px;
+    letter-spacing: 0.28px;
+  }
+
+  .grid-banner__body {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    text-align: center;
+    color: #001237;
+    margin: 0;
+  }
+
+  .grid-banner__body--single {
+    font-size: 14px;
+    line-height: 19px;
+  }
+
+  .grid-banner__body--double {
+    font-size: 18px;
+    line-height: 23px;
+  }
+
+  .grid-banner__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFFFFF;
+    border: 2px solid #001237;
+    color: #001237;
+    font-family: var(--font-body--family);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 19px;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    min-height: 43px;
+    width: 100%;
+    max-width: 292px;
+    padding-inline: 8px;
+    backdrop-filter: blur(4px);
+    transition: opacity var(--animation-speed) ease;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .grid-banner--double {
+      grid-column: span 2;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .grid-banner {
+      grid-column: 1 / -1;
+      min-height: 300px;
+    }
+
+    .grid-banner__heading--double {
+      font-size: 36px;
+      line-height: 40px;
+      letter-spacing: 0.18px;
+    }
+
+    .grid-banner__body--double {
+      font-size: 14px;
+      line-height: 19px;
+    }
+
+    .grid-banner__content--double {
+      max-width: 292px;
+    }
+
+    .grid-banner__button {
+      max-width: 100%;
     }
   }
 
@@ -418,6 +629,9 @@
   "blocks": [
     {
       "type": "_subcategory-link"
+    },
+    {
+      "type": "_grid-banner"
     }
   ],
   "presets": []
