@@ -16,11 +16,13 @@
         "announcement_1": {
           "type": "_announcement",
           "settings": {
-            "text": "Buy more, save more on your favourite underwear. <a href=\"\/pages\/pack-builder\"><strong>Build Your Pack<\/strong></a>."
+            "text": "Buy more, save more on your favourite underwear. <a href=\"\/pages\/pack-builder\"><strong>Build Your Pack<\/strong><\/a>."
           }
         }
       },
-      "block_order": ["announcement_1"]
+      "block_order": [
+        "announcement_1"
+      ]
     },
     "custom-header": {
       "type": "custom-header",
@@ -37,7 +39,7 @@
           "type": "mega-menu-promo",
           "settings": {
             "menu_item": "Featured",
-            "image": "shopify://shop_images/screenshot-2023-07-24-at-6-09-27-pm-mobile-header-navigation-drawer-371347.png",
+            "image": "shopify:\/\/shop_images\/screenshot-2023-07-24-at-6-09-27-pm-mobile-header-navigation-drawer-371347.png",
             "title": "Fabric Innovation",
             "link_text": "Learn More"
           }
@@ -46,14 +48,20 @@
           "type": "mega-menu-promo",
           "settings": {
             "menu_item": "Featured",
-            "image": "shopify://shop_images/screenshot-2023-07-24-at-6-09-27-pm-mobile-header-navigation-drawer-371346.png",
+            "image": "shopify:\/\/shop_images\/screenshot-2023-07-24-at-6-09-27-pm-mobile-header-navigation-drawer-371346.png",
             "title": "Daily Wear Quiz",
             "link_text": "Start Quiz"
           }
         }
       },
-      "block_order": ["promo-1", "promo-2"]
+      "block_order": [
+        "promo-1",
+        "promo-2"
+      ]
     }
   },
-  "order": ["header-announcements", "custom-header"]
+  "order": [
+    "header-announcements",
+    "custom-header"
+  ]
 }
