@@ -1,0 +1,85 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "layout_type": "grid",
+        "product_card_size": "medium",
+        "mobile_product_card_size": "small",
+        "enable_infinite_scroll": true,
+        "product_grid_width": "centered",
+        "full_width_on_mobile": true,
+        "columns_gap_horizontal": 16,
+        "columns_gap_vertical": 16,
+        "padding-inline-start": 0,
+        "padding-inline-end": 0,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 8,
+        "padding-block-end": 8
+      },
+      "blocks": {
+        "link_underwear": {
+          "type": "_subcategory-link",
+          "settings": {
+            "label": "Underwear"
+          }
+        },
+        "link_short_sleeves": {
+          "type": "_subcategory-link",
+          "settings": {
+            "label": "Short Sleeves"
+          }
+        },
+        "link_polos": {
+          "type": "_subcategory-link",
+          "settings": {
+            "label": "Polos"
+          }
+        },
+        "link_jackets_vests": {
+          "type": "_subcategory-link",
+          "settings": {
+            "label": "Jackets & Vests"
+          }
+        },
+        "link_pants": {
+          "type": "_subcategory-link",
+          "settings": {
+            "label": "Pants"
+          }
+        },
+        "link_joggers": {
+          "type": "_subcategory-link",
+          "settings": {
+            "label": "Joggers"
+          }
+        },
+        "link_shorts": {
+          "type": "_subcategory-link",
+          "settings": {
+            "label": "Shorts"
+          }
+        },
+        "link_accessories": {
+          "type": "_subcategory-link",
+          "settings": {
+            "label": "Accessories"
+          }
+        }
+      },
+      "block_order": [
+        "link_underwear",
+        "link_short_sleeves",
+        "link_polos",
+        "link_jackets_vests",
+        "link_pants",
+        "link_joggers",
+        "link_shorts",
+        "link_accessories"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
