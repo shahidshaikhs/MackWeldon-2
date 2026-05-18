@@ -102,9 +102,19 @@
         "banner_single",
         "banner_double"
       ]
+    },
+    "recently-viewed": {
+      "type": "recently-viewed",
+      "settings": {
+        "heading": "Recently Viewed",
+        "color_scheme": "scheme-1",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "recently-viewed"
   ]
 }
