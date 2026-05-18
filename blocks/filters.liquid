@@ -940,15 +940,19 @@
   }
 
   .facets__inputs-wrapper .facets__inputs-list--grid {
-    --min-column-width: 20%;
+    --min-column-width: 40px;
 
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(var(--min-column-width), 1fr));
-    gap: var(--gap-sm);
+    grid-template-columns: repeat(auto-fill, minmax(var(--min-column-width), max-content));
+    gap: 8px;
 
     @media screen and (min-width: 750px) {
-      --min-column-width: 50px;
+      --min-column-width: 40px;
     }
+  }
+
+  .facets__inputs-list--grid .facets__pill-wrapper {
+    width: 40px;
   }
 
   .facets-block-wrapper:not(.facets-block-wrapper--vertical) .facets__inputs-list--grid {
