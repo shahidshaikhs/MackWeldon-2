@@ -16,7 +16,7 @@
         "review_1": {
           "type": "review",
           "settings": {
-            "product_image": "shopify://shop_images/rectangle-545-mobile-hero-I396827411619.png",
+            "product_image": "shopify:\/\/shop_images\/rectangle-545-mobile-hero-I396827411619.png",
             "product_name": "ACE Pullover Hooded Sweatshirt",
             "star_rating": 5,
             "review_count": "40",
@@ -27,7 +27,7 @@
         "review_2": {
           "type": "review",
           "settings": {
-            "product_image": "shopify://shop_images/rectangle-545-desktop-hero-I39602677471.png",
+            "product_image": "shopify:\/\/shop_images\/rectangle-545-desktop-hero-I39602677471.png",
             "product_name": "18-Hour Jersey Trunk",
             "star_rating": 5,
             "review_count": "40",
