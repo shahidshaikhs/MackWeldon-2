@@ -1,0 +1,968 @@
+{% liquid
+  assign heading = section.settings.heading | default: 'RATINGS & REVIEWS'
+  assign rating_value = section.settings.rating_value | default: 0
+  assign review_count = section.settings.review_count | default: 0
+  assign search_placeholder = section.settings.search_placeholder | default: 'Search reviews'
+  assign ask_question_text = section.settings.ask_question_text | default: 'ASK A QUESTION'
+  assign write_review_text = section.settings.write_review_text | default: 'WRITE A REVIEW'
+%}
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="
+    section
+    section--page-width
+    color-{{ section.settings.color_scheme }}
+    product-reviews
+    spacing-style
+  "
+  style="{% render 'spacing-style', settings: section.settings %}"
+  {{ section.shopify_attributes }}
+>
+  {%- comment -%} Heading {%- endcomment -%}
+  <h2 class="product-reviews__heading">{{ heading | escape }}</h2>
+
+  {%- comment -%} Rating Summary {%- endcomment -%}
+  {% if rating_value > 0 %}
+    <div class="product-reviews__summary">
+      <div class="product-reviews__summary-stars">
+        <span class="product-reviews__rating-number">{{ rating_value }}</span>
+        <img
+          src="{{ 'elements-icons-ratings-stars-4-5.svg' | asset_url }}"
+          alt="{{ rating_value }} out of 5 stars"
+          width="135"
+          height="20"
+          loading="lazy"
+        >
+      </div>
+      {% if review_count > 0 %}
+        <span class="product-reviews__based-on">Based on {{ review_count }} Reviews</span>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {%- comment -%} Search Bar {%- endcomment -%}
+  <div class="product-reviews__search">
+    <input
+      type="text"
+      class="product-reviews__search-input"
+      placeholder="{{ search_placeholder | escape }}"
+      aria-label="{{ search_placeholder | escape }}"
+    >
+    <span class="product-reviews__search-icon" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="7.5" cy="7.5" r="6.5" stroke="#001237" stroke-width="1"/>
+        <line x1="12.35" y1="12.35" x2="17" y2="17" stroke="#001237" stroke-width="1" stroke-linecap="round"/>
+      </svg>
+    </span>
+  </div>
+
+  {%- comment -%} Filter Tags {%- endcomment -%}
+  {% assign filter_tags = section.blocks | where: 'type', 'filter-tag' %}
+  {% if filter_tags.size > 0 %}
+    <div class="product-reviews__filter-tags">
+      {% for block in filter_tags %}
+        <button
+          class="product-reviews__filter-tag"
+          type="button"
+          {{ block.shopify_attributes }}
+        >
+          {{ block.settings.label | escape }}
+        </button>
+      {% endfor %}
+      <button class="product-reviews__filter-tag product-reviews__filter-tag--more" type="button" aria-label="More filters">
+        <svg width="16" height="21" viewBox="0 0 16 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="4" cy="6" r="2" fill="#001237"/>
+          <circle cx="8" cy="6" r="2" fill="#001237"/>
+          <circle cx="12" cy="6" r="2" fill="#001237"/>
+        </svg>
+      </button>
+    </div>
+  {% endif %}
+
+  {%- comment -%} Filter / Sort Dropdowns {%- endcomment -%}
+  <div class="product-reviews__dropdowns">
+    <button class="product-reviews__dropdown" type="button">
+      <span class="product-reviews__dropdown-label">
+        <span class="product-reviews__dropdown-prefix">Filter by:</span>
+        <span class="product-reviews__dropdown-value">Images & Videos</span>
+      </span>
+      <img src="{{ 'caretdown.svg' | asset_url }}" alt="" width="16" height="16" aria-hidden="true">
+    </button>
+    <button class="product-reviews__dropdown" type="button">
+      <span class="product-reviews__dropdown-label">
+        <span class="product-reviews__dropdown-prefix">Sort:</span>
+        <span class="product-reviews__dropdown-value">Select</span>
+      </span>
+      <img src="{{ 'caretdown.svg' | asset_url }}" alt="" width="16" height="16" aria-hidden="true">
+    </button>
+    <button class="product-reviews__dropdown" type="button">
+      <span class="product-reviews__dropdown-label">
+        <span class="product-reviews__dropdown-prefix">Filter by:</span>
+        <span class="product-reviews__dropdown-value">Rating</span>
+      </span>
+      <img src="{{ 'caretdown.svg' | asset_url }}" alt="" width="16" height="16" aria-hidden="true">
+    </button>
+  </div>
+
+  {%- comment -%} Showing X Reviews {%- endcomment -%}
+  {% if review_count > 0 %}
+    <p class="product-reviews__showing">Showing {{ review_count }} Reviews</p>
+  {% endif %}
+
+  {%- comment -%} Review Cards {%- endcomment -%}
+  {% assign review_cards = section.blocks | where: 'type', 'review-card' %}
+  {% if review_cards.size > 0 %}
+    <div class="product-reviews__cards">
+      {% for block in review_cards %}
+        <div class="product-reviews__card" {{ block.shopify_attributes }}>
+          <div class="product-reviews__card-reviewer">
+            {%- comment -%} Star rating {%- endcomment -%}
+            <div class="product-reviews__card-stars">
+              <img
+                src="{{ 'elements-icons-ratings-stars-4-5-2.svg' | asset_url }}"
+                alt="{{ block.settings.rating_value | default: 5 }} out of 5 stars"
+                width="108"
+                height="16"
+                loading="lazy"
+              >
+            </div>
+
+            {%- comment -%} Reviewer name {%- endcomment -%}
+            {% if block.settings.reviewer_name != blank %}
+              <span class="product-reviews__card-name">{{ block.settings.reviewer_name | escape }}</span>
+            {% endif %}
+
+            {%- comment -%} Verified buyer {%- endcomment -%}
+            {% if block.settings.is_verified %}
+              <span class="product-reviews__card-verified">Verified Buyer</span>
+            {% endif %}
+
+            {%- comment -%} Date {%- endcomment -%}
+            {% if block.settings.reviewer_date != blank %}
+              <span class="product-reviews__card-date">{{ block.settings.reviewer_date | escape }}</span>
+            {% endif %}
+
+            {%- comment -%} Waist / Size / Fit details {%- endcomment -%}
+            <div class="product-reviews__card-details">
+              {% if block.settings.waist != blank %}
+                <div class="product-reviews__card-detail">
+                  <span>Waist:</span>
+                  <strong>{{ block.settings.waist | escape }}</strong>
+                </div>
+              {% endif %}
+              {% if block.settings.size != blank %}
+                <div class="product-reviews__card-detail">
+                  <span>Size:</span>
+                  <strong>{{ block.settings.size | escape }}</strong>
+                </div>
+              {% endif %}
+              {% if block.settings.fit != blank %}
+                <div class="product-reviews__card-detail">
+                  <span>Fit:</span>
+                  <strong>{{ block.settings.fit | escape }}</strong>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="product-reviews__card-content">
+            {%- comment -%} Review title {%- endcomment -%}
+            {% if block.settings.review_title != blank %}
+              <h3 class="product-reviews__card-title">{{ block.settings.review_title | escape }}</h3>
+            {% endif %}
+
+            {%- comment -%} Review body {%- endcomment -%}
+            {% if block.settings.review_body != blank %}
+              <p class="product-reviews__card-body">{{ block.settings.review_body | escape }}</p>
+            {% endif %}
+
+            {%- comment -%} Product name {%- endcomment -%}
+            {% if block.settings.product_name != blank %}
+              <div class="product-reviews__card-product">
+                <span>On:</span>
+                <strong>{{ block.settings.product_name | escape }}</strong>
+              </div>
+            {% endif %}
+
+            {%- comment -%} Share / Thumbs {%- endcomment -%}
+            <div class="product-reviews__card-actions">
+              <button type="button" class="product-reviews__card-share">Share</button>
+              <div class="product-reviews__card-thumbs">
+                <span class="product-reviews__card-thumb product-reviews__card-thumb--up">
+                  <img src="{{ 'thumbsup.svg' | asset_url }}" alt="Thumbs up" width="16" height="16" loading="lazy">
+                  <span>{{ block.settings.likes_count | default: 0 }}</span>
+                </span>
+                <span class="product-reviews__card-thumb product-reviews__card-thumb--down">
+                  <img src="{{ 'thumbsup-2.svg' | asset_url }}" alt="Thumbs down" width="16" height="16" loading="lazy" style="transform: rotate(180deg);">
+                  <span>{{ block.settings.dislikes_count | default: 0 }}</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {%- comment -%} App blocks area {%- endcomment -%}
+  {% assign app_blocks = section.blocks | where: 'type', '@app' %}
+  {% for block in app_blocks %}
+    <div {{ block.shopify_attributes }}>
+      {% render block %}
+    </div>
+  {% endfor %}
+
+  {%- comment -%} Pagination {%- endcomment -%}
+  <nav class="product-reviews__pagination" aria-label="Review pages">
+    <button class="product-reviews__page-arrow product-reviews__page-arrow--prev" type="button" aria-label="Previous page">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7.5 1.5L3 6L7.5 10.5" stroke="#0074E0" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div class="product-reviews__page-numbers">
+      <span class="product-reviews__page product-reviews__page--active">1</span>
+      <span class="product-reviews__page">2</span>
+      <span class="product-reviews__page">3</span>
+      <span class="product-reviews__page">4</span>
+    </div>
+    <button class="product-reviews__page-arrow product-reviews__page-arrow--next" type="button" aria-label="Next page">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4.5 1.5L9 6L4.5 10.5" stroke="#0074E0" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </nav>
+
+  {%- comment -%} CTA Buttons {%- endcomment -%}
+  <div class="product-reviews__ctas">
+    {% if section.settings.ask_question_url != blank %}
+      <a href="{{ section.settings.ask_question_url }}" class="product-reviews__cta">
+        {{ ask_question_text | escape }}
+      </a>
+    {% else %}
+      <button type="button" class="product-reviews__cta">
+        {{ ask_question_text | escape }}
+      </button>
+    {% endif %}
+
+    {% if section.settings.write_review_url != blank %}
+      <a href="{{ section.settings.write_review_url }}" class="product-reviews__cta">
+        {{ write_review_text | escape }}
+      </a>
+    {% else %}
+      <button type="button" class="product-reviews__cta">
+        {{ write_review_text | escape }}
+      </button>
+    {% endif %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .product-reviews {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  /* Heading */
+  .product-reviews__heading {
+    font-family: var(--font-heading--family);
+    font-weight: 500;
+    font-size: clamp(32px, 5vw, 56px);
+    line-height: 1.07;
+    letter-spacing: 0.28px;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--color-foreground);
+    margin: 0;
+  }
+
+  /* Rating Summary */
+  .product-reviews__summary {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    width: 100%;
+    max-width: 644px;
+  }
+
+  .product-reviews__summary-stars {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .product-reviews__rating-number {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 35px;
+    color: var(--color-foreground);
+  }
+
+  .product-reviews__based-on {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    color: var(--color-foreground);
+  }
+
+  /* Search Bar */
+  .product-reviews__search {
+    position: relative;
+    width: 100%;
+    max-width: 644px;
+  }
+
+  .product-reviews__search-input {
+    width: 100%;
+    height: 51px;
+    padding: 14px 48px 14px 16px;
+    border: 0.5px solid #6A6A6A;
+    border-radius: 0;
+    background: transparent;
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 23px;
+    color: var(--color-foreground);
+    box-sizing: border-box;
+
+    &::placeholder {
+      color: var(--color-foreground);
+      opacity: 0.8;
+    }
+
+    &:focus {
+      outline: 2px solid #0074E0;
+      outline-offset: -2px;
+    }
+  }
+
+  .product-reviews__search-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+  }
+
+  /* Filter Tags */
+  .product-reviews__filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+    max-width: 644px;
+  }
+
+  .product-reviews__filter-tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    border: 1px solid #EBEBEB;
+    border-radius: 0;
+    background: #ffffff;
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 23px;
+    color: var(--color-foreground);
+    cursor: pointer;
+    white-space: nowrap;
+
+    &:hover {
+      border-color: #001237;
+    }
+  }
+
+  .product-reviews__filter-tag--more {
+    padding: 10px 16px;
+  }
+
+  /* Filter / Sort Dropdowns */
+  .product-reviews__dropdowns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+    max-width: 644px;
+  }
+
+  .product-reviews__dropdown {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 12px;
+    border: 0.5px solid #6A6A6A;
+    border-radius: 0;
+    background: transparent;
+    cursor: pointer;
+    font-family: var(--font-body--family);
+  }
+
+  .product-reviews__dropdown-label {
+    display: flex;
+    gap: 4px;
+    font-size: 18px;
+    line-height: 23px;
+  }
+
+  .product-reviews__dropdown-prefix {
+    font-weight: 500;
+    color: var(--color-foreground);
+  }
+
+  .product-reviews__dropdown-value {
+    font-weight: 400;
+    color: var(--color-foreground);
+  }
+
+  /* Showing X Reviews */
+  .product-reviews__showing {
+    font-family: var(--font-body--family);
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 27px;
+    color: var(--color-foreground);
+    width: 100%;
+    max-width: 960px;
+    margin: 8px 0 0;
+  }
+
+  /* Review Cards */
+  .product-reviews__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .product-reviews__card {
+    display: flex;
+    gap: 32px;
+    padding: 24px;
+    background: #ffffff;
+    border-radius: 0;
+  }
+
+  .product-reviews__card-reviewer {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex-shrink: 0;
+    min-width: 184px;
+  }
+
+  .product-reviews__card-stars {
+    display: flex;
+    align-items: center;
+    margin-block-end: 4px;
+  }
+
+  .product-reviews__card-name {
+    font-family: var(--font-body--family);
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 27px;
+    color: var(--color-foreground);
+  }
+
+  .product-reviews__card-verified {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    color: #6A6A6A;
+  }
+
+  .product-reviews__card-date {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    color: #6A6A6A;
+  }
+
+  .product-reviews__card-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-block-start: 8px;
+  }
+
+  .product-reviews__card-detail {
+    display: flex;
+    gap: 4px;
+    font-family: var(--font-body--family);
+    font-size: 14px;
+    line-height: 19px;
+    color: var(--color-foreground);
+
+    & span {
+      font-weight: 400;
+    }
+
+    & strong {
+      font-weight: 500;
+    }
+  }
+
+  .product-reviews__card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .product-reviews__card-title {
+    font-family: var(--font-body--family);
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 27px;
+    color: var(--color-foreground);
+    margin: 0;
+  }
+
+  .product-reviews__card-body {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 23px;
+    color: var(--color-foreground);
+    margin: 0;
+  }
+
+  .product-reviews__card-product {
+    display: flex;
+    gap: 4px;
+    font-family: var(--font-body--family);
+    font-size: 14px;
+    line-height: 19px;
+    color: var(--color-foreground);
+
+    & span {
+      font-weight: 400;
+    }
+
+    & strong {
+      font-weight: 500;
+    }
+  }
+
+  .product-reviews__card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-block-start: 8px;
+  }
+
+  .product-reviews__card-share {
+    font-family: var(--font-body--family);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 23px;
+    color: #0074E0;
+    text-decoration: underline;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .product-reviews__card-thumbs {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .product-reviews__card-thumb {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    color: #6A6A6A;
+  }
+
+  /* Pagination */
+  .product-reviews__pagination {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .product-reviews__page-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .product-reviews__page-numbers {
+    display: flex;
+    gap: 32px;
+  }
+
+  .product-reviews__page {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 23px;
+    color: #6A6A6A;
+  }
+
+  .product-reviews__page--active {
+    font-weight: 500;
+    color: #0074E0;
+  }
+
+  /* CTA Buttons */
+  .product-reviews__ctas {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .product-reviews__cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 70px;
+    border: 1.5px solid #001237;
+    border-radius: 0;
+    background: #ffffff;
+    font-family: var(--font-body--family);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 19px;
+    text-transform: uppercase;
+    color: #001237;
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+
+    &:hover {
+      background: #F7F7F7;
+    }
+  }
+
+  /* Mobile */
+  @media screen and (max-width: 749px) {
+    .product-reviews__card {
+      flex-direction: column;
+      gap: 16px;
+      padding: 16px;
+    }
+
+    .product-reviews__card-reviewer {
+      min-width: auto;
+    }
+
+    .product-reviews__filter-tags {
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      scrollbar-width: none;
+    }
+
+    .product-reviews__filter-tags::-webkit-scrollbar {
+      display: none;
+    }
+
+    .product-reviews__dropdowns {
+      flex-direction: column;
+    }
+
+    .product-reviews__ctas {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .product-reviews__cta {
+      width: 100%;
+      padding: 12px 24px;
+    }
+
+    .product-reviews__showing {
+      font-size: 18px;
+    }
+
+    .product-reviews__heading {
+      font-size: 32px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.product_reviews",
+  "tag": "section",
+  "class": "product-reviews-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    {
+      "type": "filter-tag",
+      "name": "t:names.filter_tag",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label"
+        }
+      ]
+    },
+    {
+      "type": "review-card",
+      "name": "t:names.review_card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "reviewer_name",
+          "label": "Reviewer name"
+        },
+        {
+          "type": "text",
+          "id": "reviewer_date",
+          "label": "Date"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_verified",
+          "label": "Verified buyer",
+          "default": true
+        },
+        {
+          "type": "number",
+          "id": "rating_value",
+          "label": "Rating (1-5)"
+        },
+        {
+          "type": "text",
+          "id": "review_title",
+          "label": "Review title"
+        },
+        {
+          "type": "textarea",
+          "id": "review_body",
+          "label": "Review body"
+        },
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "Product name"
+        },
+        {
+          "type": "text",
+          "id": "waist",
+          "label": "Waist"
+        },
+        {
+          "type": "text",
+          "id": "size",
+          "label": "Size"
+        },
+        {
+          "type": "text",
+          "id": "fit",
+          "label": "Fit"
+        },
+        {
+          "type": "number",
+          "id": "likes_count",
+          "label": "Likes"
+        },
+        {
+          "type": "number",
+          "id": "dislikes_count",
+          "label": "Dislikes"
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "RATINGS & REVIEWS"
+    },
+    {
+      "type": "number",
+      "id": "rating_value",
+      "label": "Rating value"
+    },
+    {
+      "type": "number",
+      "id": "review_count",
+      "label": "Review count"
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Search placeholder",
+      "default": "Search reviews"
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "ask_question_text",
+      "label": "Ask question text",
+      "default": "ASK A QUESTION"
+    },
+    {
+      "type": "url",
+      "id": "ask_question_url",
+      "label": "Ask question URL"
+    },
+    {
+      "type": "text",
+      "id": "write_review_text",
+      "label": "Write review text",
+      "default": "WRITE A REVIEW"
+    },
+    {
+      "type": "url",
+      "id": "write_review_url",
+      "label": "Write review URL"
+    },
+    {
+      "type": "header",
+      "content": "t:content.colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-9"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.product_reviews",
+      "settings": {
+        "heading": "RATINGS & REVIEWS",
+        "rating_value": 4,
+        "review_count": 415,
+        "color_scheme": "scheme-9",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      },
+      "blocks": [
+        {
+          "type": "filter-tag",
+          "settings": { "label": "Fit" }
+        },
+        {
+          "type": "filter-tag",
+          "settings": { "label": "Fabric" }
+        },
+        {
+          "type": "filter-tag",
+          "settings": { "label": "Weight" }
+        },
+        {
+          "type": "filter-tag",
+          "settings": { "label": "Boxer" }
+        },
+        {
+          "type": "filter-tag",
+          "settings": { "label": "Color" }
+        },
+        {
+          "type": "filter-tag",
+          "settings": { "label": "Patterns" }
+        },
+        {
+          "type": "filter-tag",
+          "settings": { "label": "Length" }
+        },
+        {
+          "type": "filter-tag",
+          "settings": { "label": "Material" }
+        },
+        {
+          "type": "review-card",
+          "settings": {
+            "reviewer_name": "Adam H.",
+            "reviewer_date": "11/13/20",
+            "is_verified": true,
+            "rating_value": 5,
+            "review_title": "That makes me feel good",
+            "review_body": "They are very airy and feel like you have nothing on at all.",
+            "product_name": "AIRKNITx HD Boxer Brief",
+            "waist": "35",
+            "size": "Large",
+            "fit": "True to size",
+            "likes_count": 230,
+            "dislikes_count": 3
+          }
+        },
+        {
+          "type": "review-card",
+          "settings": {
+            "reviewer_name": "Dennis K.",
+            "reviewer_date": "11/13/20",
+            "is_verified": true,
+            "rating_value": 5,
+            "review_title": "Great Thanks. They don't bag",
+            "review_body": "Great thanks. They don't bag out after just one wearing. I liked them so much I immediately ordered another pair.",
+            "product_name": "AIRKNITx HD Boxer Brief",
+            "waist": "35",
+            "size": "Large",
+            "fit": "True to size",
+            "likes_count": 230,
+            "dislikes_count": 3
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

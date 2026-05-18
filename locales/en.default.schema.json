@@ -456,7 +456,10 @@
     "custom_header": "Custom header",
     "mega_menu_promo": "Mega menu promo",
     "pdp_bottom_links": "PDP bottom links",
-    "subscription_picker": "Subscription picker"
+    "subscription_picker": "Subscription picker",
+    "product_reviews": "Product reviews",
+    "review_card": "Review",
+    "filter_tag": "Filter tag"
   },
   "options": {
     "above_carousel": "Above carousel",

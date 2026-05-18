@@ -192,7 +192,7 @@
             "heading": {
               "type": "text",
               "settings": {
-                "text": "<h2>Every Detail Matters<\/h2>",
+                "text": "<h2>EVERY DETAIL MATTERS<\/h2>",
                 "width": "100%",
                 "alignment": "left",
                 "type_preset": "h2",
@@ -409,7 +409,7 @@
         }
       },
       "settings": {
-        "media_position": "left",
+        "media_position": "right",
         "media_width": "medium",
         "media_height": "auto",
         "section_width": "page-width",
@@ -478,12 +478,24 @@
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
               }
+            },
+            "review_stars": {
+              "type": "review",
+              "settings": {
+                "stars_style": "shaded",
+                "show_number": true,
+                "rating_color": "primary",
+                "type_preset": "paragraph",
+                "width": "fit-content",
+                "alignment": "left"
+              }
             }
           },
           "block_order": [
             "product-card-gallery",
             "product_title",
-            "price"
+            "price",
+            "review_stars"
           ]
         }
       },
@@ -514,12 +526,107 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "product-reviews": {
+      "type": "product-reviews",
+      "blocks": {
+        "filter_fit": {
+          "type": "filter-tag",
+          "settings": { "label": "Fit" }
+        },
+        "filter_fabric": {
+          "type": "filter-tag",
+          "settings": { "label": "Fabric" }
+        },
+        "filter_weight": {
+          "type": "filter-tag",
+          "settings": { "label": "Weight" }
+        },
+        "filter_boxer": {
+          "type": "filter-tag",
+          "settings": { "label": "Boxer" }
+        },
+        "filter_color": {
+          "type": "filter-tag",
+          "settings": { "label": "Color" }
+        },
+        "filter_patterns": {
+          "type": "filter-tag",
+          "settings": { "label": "Patterns" }
+        },
+        "filter_length": {
+          "type": "filter-tag",
+          "settings": { "label": "Length" }
+        },
+        "filter_material": {
+          "type": "filter-tag",
+          "settings": { "label": "Material" }
+        },
+        "review_1": {
+          "type": "review-card",
+          "settings": {
+            "reviewer_name": "Adam H.",
+            "reviewer_date": "11/13/20",
+            "is_verified": true,
+            "rating_value": 5,
+            "review_title": "That makes me feel good",
+            "review_body": "They are very airy and feel like you have nothing on at all.",
+            "product_name": "AIRKNITx HD Boxer Brief",
+            "waist": "35",
+            "size": "Large",
+            "fit": "True to size",
+            "likes_count": 230,
+            "dislikes_count": 3
+          }
+        },
+        "review_2": {
+          "type": "review-card",
+          "settings": {
+            "reviewer_name": "Dennis K.",
+            "reviewer_date": "11/13/20",
+            "is_verified": true,
+            "rating_value": 5,
+            "review_title": "Great Thanks. They don't bag",
+            "review_body": "Great thanks. They don't bag out after just one wearing. I liked them so much I immediately ordered another pair.",
+            "product_name": "AIRKNITx HD Boxer Brief",
+            "waist": "35",
+            "size": "Large",
+            "fit": "True to size",
+            "likes_count": 230,
+            "dislikes_count": 3
+          }
+        }
+      },
+      "block_order": [
+        "filter_fit",
+        "filter_fabric",
+        "filter_weight",
+        "filter_boxer",
+        "filter_color",
+        "filter_patterns",
+        "filter_length",
+        "filter_material",
+        "review_1",
+        "review_2"
+      ],
+      "settings": {
+        "heading": "RATINGS & REVIEWS",
+        "rating_value": 4,
+        "review_count": 415,
+        "search_placeholder": "Search reviews",
+        "ask_question_text": "ASK A QUESTION",
+        "write_review_text": "WRITE A REVIEW",
+        "color_scheme": "scheme-9",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
     }
   },
   "order": [
     "product-information",
     "every-detail-matters",
     "recommendations",
-    "recently-viewed"
+    "recently-viewed",
+    "product-reviews"
   ]
 }

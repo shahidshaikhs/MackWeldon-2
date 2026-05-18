@@ -167,6 +167,34 @@
   </div>
 </product-recommendations>
 
+{% stylesheet %}
+  /* Mack Weldon PDP: Section heading uppercase treatment */
+  .product-recommendations .section-resource-list__content h2 {
+    text-transform: uppercase;
+    letter-spacing: 0.28px;
+    font-family: var(--font-heading--family);
+    font-weight: 500;
+    font-size: clamp(32px, 5vw, 56px);
+    line-height: 1.07;
+  }
+
+  /* Product card background */
+  .product-recommendations .resource-list__item .product-card {
+    background-color: #F7F7F7;
+  }
+
+  /* Product card image aspect ratio 3:4 (Figma 322x428) */
+  .product-recommendations .product-card-gallery__image-wrapper {
+    aspect-ratio: 3 / 4;
+  }
+
+  .product-recommendations .product-card-gallery__image-wrapper img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+{% endstylesheet %}
+
 {% schema %}
 {
   "name": "t:names.product_recommendations",

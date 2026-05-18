@@ -356,6 +356,61 @@
       white-space: nowrap;
     }
   }
+
+  /* ===== Mack Weldon PDP Brand Overrides ===== */
+
+  /* Variant picker: selected state blue */
+  .product-information__grid {
+    --color-selected-variant-background: #0074E0;
+    --color-selected-variant-text: #ffffff;
+    --color-selected-variant-border: #0074E0;
+    --color-selected-variant-hover-background: #005bb5;
+    --color-selected-variant-hover-text: #ffffff;
+    --color-selected-variant-hover-border: #005bb5;
+  }
+
+  /* Variant size buttons: square corners, #6A6A6A border */
+  .product-information__grid .variant-picker {
+    --style-border-radius-variant-buttons: 0;
+    --color-variant-border: #6A6A6A;
+  }
+
+  /* Color swatch selected ring: blue */
+  .product-information__grid .variant-picker .swatch[aria-checked='true'],
+  .product-information__grid .variant-picker .swatch.selected {
+    outline-color: #0074E0;
+    border-color: #0074E0;
+  }
+
+  /* Sale price color: Mack Weldon blue */
+  .product-information__grid product-price .price--sale .price-item--sale {
+    color: #0074E0;
+  }
+
+  /* Compare-at price: strikethrough, muted */
+  .product-information__grid product-price .price--sale .price-item--compare {
+    color: #001237;
+    text-decoration: line-through;
+  }
+
+  /* Gallery media area background */
+  .product-information__media {
+    background-color: #F7F7F7;
+  }
+
+  /* Add to cart button: navy background */
+  .product-information__grid .buy-buttons-block .button--primary,
+  .product-information__grid .buy-buttons-block .add-to-cart-button {
+    background-color: #001237;
+    border-color: #001237;
+    color: #ffffff;
+  }
+
+  .product-information__grid .buy-buttons-block .button--primary:hover,
+  .product-information__grid .buy-buttons-block .add-to-cart-button:hover {
+    background-color: #001a45;
+    border-color: #001a45;
+  }
 {% endstylesheet %}
 
 {% schema %}

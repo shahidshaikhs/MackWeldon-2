@@ -1,0 +1,37 @@
+{% doc %}
+  Product Badges
+
+  Renders badges from the product's custom.badges metafield (list.metaobject_reference).
+  Each badge metaobject has: label (text), background_color (color), text_color (color), position (list.single_line_text_field).
+
+  @param {object} product - Product object (required)
+
+  @example
+  {% render 'product-badges', product: product %}
+{% enddoc %}
+
+{% liquid
+  assign product = product | default: empty
+  unless product != empty
+    break
+  endunless
+
+  assign badges = product.metafields.custom.badges.value
+  unless badges != blank
+    break
+  endunless
+%}
+
+{%- for badge in badges -%}
+  {%- if badge.label.value != blank -%}
+    <span
+      class="product-badge"
+      style="
+        background-color: {{ badge.background_color.value | default: '#001237' }};
+        color: {{ badge.text_color.value | default: '#ffffff' }};
+      "
+    >
+      {{- badge.label.value -}}
+    </span>
+  {%- endif -%}
+{%- endfor -%}
