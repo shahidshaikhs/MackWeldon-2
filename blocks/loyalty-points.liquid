@@ -1,0 +1,115 @@
+{% doc %}
+  Loyalty Points Block
+
+  Renders a loyalty points display row with an icon and richtext message.
+  The message setting is dynamic-source compatible — merchants can bind it
+  to a product metafield via the theme editor connector.
+
+  @example
+  {% content_for 'block', type: 'loyalty-points', id: 'loyalty-points' %}
+{% enddoc %}
+
+{% liquid
+  assign message = block.settings.message
+  assign show_icon = block.settings.show_icon
+%}
+
+{% if message != blank %}
+  <div class="loyalty-points" {{ block.shopify_attributes }}>
+    {% if show_icon %}
+      <img
+        src="{{ 'combined-shape.svg' | asset_url }}"
+        alt=""
+        class="loyalty-points__icon"
+        width="18"
+        height="12"
+        loading="lazy"
+      >
+    {% endif %}
+    <div class="loyalty-points__message rte">
+      {{ message }}
+    </div>
+  </div>
+{% endif %}
+
+{% stylesheet %}
+  .loyalty-points {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    width: 100%;
+  }
+
+  .loyalty-points__icon {
+    width: 18px;
+    height: 12px;
+    flex-shrink: 0;
+  }
+
+  .loyalty-points__message {
+    font-size: var(--font-size--sm);
+    line-height: 19px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .loyalty-points__message {
+      font-size: var(--font-size--xs);
+      line-height: 17px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.loyalty_points",
+  "tag": null,
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "message",
+      "label": "t:settings.text",
+      "default": "<p>Earn <strong>124 points</strong> with this purchase.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_icon",
+      "label": "t:settings.show_icon",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:content.layout"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:settings.width",
+      "options": [
+        {
+          "value": "fit-content",
+          "label": "t:options.fit_content"
+        },
+        {
+          "value": "100%",
+          "label": "t:options.fill"
+        }
+      ],
+      "default": "100%"
+    },
+    {
+      "type": "text_alignment",
+      "id": "alignment",
+      "label": "t:settings.alignment",
+      "default": "center"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.loyalty_points",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

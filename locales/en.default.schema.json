@@ -459,7 +459,9 @@
     "subscription_picker": "Subscription picker",
     "product_reviews": "Product reviews",
     "review_card": "Review",
-    "filter_tag": "Filter tag"
+    "filter_tag": "Filter tag",
+    "wishlist_button": "Wishlist",
+    "loyalty_points": "Loyalty points"
   },
   "options": {
     "above_carousel": "Above carousel",
@@ -1245,7 +1247,9 @@
     "sale_color": "Sale color",
     "sidebar_columns": "Sidebar columns",
     "menu_item": "Menu item",
-    "link_text": "Link text"
+    "link_text": "Link text",
+    "show_icon": "Show icon",
+    "icon_color": "Icon color"
   },
   "text_defaults": {
     "accordion_heading": "Accordion heading",

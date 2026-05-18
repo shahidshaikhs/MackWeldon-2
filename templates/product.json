@@ -49,15 +49,43 @@
                 "padding-inline-end": 0
               }
             },
-            "price": {
-              "type": "price",
+            "price_row": {
+              "type": "group",
               "settings": {
-                "show_sale_price_first": true,
-                "show_tax_info": false,
-                "type_preset": "h4",
-                "width": "100%",
-                "alignment": "left"
-              }
+                "content_direction": "row",
+                "horizontal_alignment": "space-between",
+                "vertical_alignment": "center",
+                "gap": 0,
+                "width": "fill",
+                "inherit_color_scheme": true,
+                "border": "none",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "price": {
+                  "type": "price",
+                  "settings": {
+                    "show_sale_price_first": true,
+                    "show_tax_info": false,
+                    "type_preset": "h4",
+                    "width": "100%",
+                    "alignment": "left"
+                  }
+                },
+                "wishlist_button": {
+                  "type": "wishlist-button",
+                  "settings": {
+                    "icon_color": "#0074E0"
+                  }
+                }
+              },
+              "block_order": [
+                "price",
+                "wishlist_button"
+              ]
             },
             "description": {
               "type": "product-description",
@@ -88,6 +116,15 @@
                 "subscribe_label": "Subscribe & Save"
               }
             },
+            "loyalty_points": {
+              "type": "loyalty-points",
+              "settings": {
+                "message": "<p>Earn <strong>124 points</strong> with this purchase.</p>",
+                "show_icon": true,
+                "width": "100%",
+                "alignment": "center"
+              }
+            },
             "buy_buttons": {
               "type": "buy-buttons",
               "settings": {
@@ -101,7 +138,7 @@
                   "type": "add-to-cart",
                   "static": true,
                   "settings": {
-                    "style_class": "button-secondary"
+                    "style_class": "button-primary"
                   }
                 },
                 "accelerated-checkout": {
@@ -117,20 +154,7 @@
               "settings": {
                 "text": "<p><strong>Free Shipping<\/strong> on orders over $75  |  <strong>Free returns<\/strong><\/p>",
                 "width": "100%",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            },
-            "rewards_info": {
-              "type": "text",
-              "settings": {
-                "text": "<p>Earn 124 points with this purchase.<\/p>",
-                "width": "100%",
-                "alignment": "left",
+                "alignment": "center",
                 "type_preset": "paragraph",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
@@ -146,13 +170,13 @@
           "block_order": [
             "review_stars",
             "product_title",
-            "price",
+            "price_row",
             "description",
             "variant_picker",
             "subscription_picker",
+            "loyalty_points",
             "buy_buttons",
             "shipping_info",
-            "rewards_info",
             "bottom_links"
           ]
         }

@@ -46,6 +46,13 @@
     justify-content: center;
   }
 
+  /* Push product-description block to the end of the flex container on mobile */
+  @media screen and (max-width: 749px) {
+    .product-details .group-block > [data-block-type="product-description"] {
+      order: 99;
+    }
+  }
+
   @media screen and (min-width: 750px) {
     .product-details > .group-block {
       height: min-content;
@@ -135,6 +142,12 @@
     },
     {
       "type": "product-title"
+    },
+    {
+      "type": "wishlist-button"
+    },
+    {
+      "type": "loyalty-points"
     }
   ],
   "tag": null,

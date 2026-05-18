@@ -1,0 +1,93 @@
+{% doc %}
+  Wishlist Button Block
+
+  Renders a heart/favorite icon for product wishlisting.
+  Visual-only — actual wishlist backend integration is left to a third-party app.
+
+  @example
+  {% content_for 'block', type: 'wishlist-button', id: 'wishlist' %}
+{% enddoc %}
+
+<button
+  type="button"
+  class="wishlist-button"
+  style="--wishlist-icon-color: {{ block.settings.icon_color }};"
+  aria-label="Add to wishlist"
+  {{ block.shopify_attributes }}
+>
+  <img
+    src="{{ 'shape.svg' | asset_url }}"
+    alt=""
+    class="wishlist-button__icon"
+    width="24"
+    height="23"
+    loading="lazy"
+  >
+</button>
+
+{% stylesheet %}
+  .wishlist-button {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .wishlist-button__icon {
+    width: 24px;
+    height: 23px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .wishlist-button__icon {
+      width: 21px;
+      height: 20px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.wishlist_button",
+  "tag": null,
+  "settings": [
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "t:settings.icon_color",
+      "default": "#0074E0"
+    },
+    {
+      "type": "header",
+      "content": "t:content.layout"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:settings.width",
+      "options": [
+        {
+          "value": "fit-content",
+          "label": "t:options.fit_content"
+        },
+        {
+          "value": "100%",
+          "label": "t:options.fill"
+        }
+      ],
+      "default": "fit-content"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.wishlist_button",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}
