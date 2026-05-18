@@ -140,10 +140,26 @@
 
   .featured-blog-posts-card__content {
     --flex-wrap: wrap;
+    gap: 4px;
   }
 
   .featured-blog-posts-card__content h4 {
     margin: 0;
+    font-family: var(--font-body--family);
+    font-size: 1.125rem;
+    line-height: 1.28;
+    font-weight: 400;
+    text-transform: none;
+  }
+
+  .featured-blog-posts .blog-post-card__content-text {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .featured-blog-posts .resource-list__carousel {
+      --resource-list-column-gap: 16px;
+    }
   }
 {% endstylesheet %}
 

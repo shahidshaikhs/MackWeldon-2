@@ -40,9 +40,78 @@
         "review_1",
         "review_2"
       ]
+    },
+    "blog_posts": {
+      "type": "featured-blog-posts",
+      "settings": {
+        "layout_type": "grid",
+        "carousel_on_mobile": true,
+        "post_limit": 3,
+        "columns": 3,
+        "mobile_card_size": "60cqw",
+        "columns_gap": 32,
+        "icons_style": "none",
+        "section_width": "page-width",
+        "gap": 12,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 20,
+        "padding-block-end": 20
+      },
+      "blocks": {
+        "static-blog-title": {
+          "type": "_featured-blog-posts-title",
+          "static": true,
+          "settings": {
+            "text": "<h3>MACK WELDON BLOG<\/h3><p><a href=\"\/blogs\/blog\" title=\"View All Articles\">View All Articles<\/a><\/p>",
+            "type_preset": "rte"
+          }
+        },
+        "static-blog-post-card": {
+          "type": "_featured-blog-posts-card",
+          "static": true,
+          "settings": {
+            "alignment": "left",
+            "gap": 12
+          },
+          "blocks": {
+            "image": {
+              "type": "_featured-blog-posts-image",
+              "static": true,
+              "settings": {
+                "image_ratio": "landscape"
+              }
+            },
+            "title": {
+              "type": "_heading",
+              "static": true,
+              "settings": {
+                "type_preset": "rte",
+                "show_alignment": false
+              }
+            },
+            "blog-post-info-text": {
+              "type": "_blog-post-info-text",
+              "static": true,
+              "settings": {
+                "padding-block-start": 0,
+                "padding-block-end": 0
+              }
+            },
+            "blog-post-description": {
+              "type": "_blog-post-description",
+              "static": true,
+              "settings": {
+                "padding-block-start": 0,
+                "padding-block-end": 0
+              }
+            }
+          }
+        }
+      }
     }
   },
   "order": [
-    "review_carousel"
+    "review_carousel",
+    "blog_posts"
   ]
 }
