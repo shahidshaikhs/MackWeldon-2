@@ -155,7 +155,10 @@
     "width_is_automatically_optimized": "Width is automatically optimized for mobile.",
     "app_required_for_ratings": "An app is required for product ratings. [Learn more](https://help.shopify.com/manual/apps)",
     "navigation": "Navigation",
-    "subcategory_links": "Subcategory links"
+    "subcategory_links": "Subcategory links",
+    "utility_links": "Utility links",
+    "mega_menu": "Mega menu",
+    "mobile": "Mobile"
   },
   "html_defaults": {
     "join_our_email_list": "<h2>Join our email list</h2>",
@@ -449,7 +452,9 @@
     "value_prop": "Value prop",
     "value_prop_item": "Value prop item",
     "subcategory_link": "Subcategory link",
-    "grid_banner": "Grid banner"
+    "grid_banner": "Grid banner",
+    "custom_header": "Custom header",
+    "mega_menu_promo": "Mega menu promo"
   },
   "options": {
     "above_carousel": "Above carousel",
@@ -1227,7 +1232,15 @@
     "eyebrow": "Eyebrow",
     "body_text": "Body text",
     "button_text": "Button text",
-    "button_link": "Button link"
+    "button_link": "Button link",
+    "utility_link_1_text": "Utility link 1 text",
+    "utility_link_1_url": "Utility link 1 URL",
+    "utility_link_2_text": "Utility link 2 text",
+    "utility_link_2_url": "Utility link 2 URL",
+    "sale_color": "Sale color",
+    "sidebar_columns": "Sidebar columns",
+    "menu_item": "Menu item",
+    "link_text": "Link text"
   },
   "text_defaults": {
     "accordion_heading": "Accordion heading",

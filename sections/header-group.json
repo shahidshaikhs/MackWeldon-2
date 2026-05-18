@@ -1,0 +1,59 @@
+{
+  "type": "header",
+  "name": "Header",
+  "sections": {
+    "header-announcements": {
+      "type": "header-announcements",
+      "settings": {
+        "speed": 5,
+        "section_width": "full-width",
+        "color_scheme": "scheme-5",
+        "divider_width": 0,
+        "padding-block-start": 8,
+        "padding-block-end": 8
+      },
+      "blocks": {
+        "announcement_1": {
+          "type": "_announcement",
+          "settings": {
+            "text": "Buy more, save more on your favourite underwear. <a href=\"\/pages\/pack-builder\"><strong>Build Your Pack<\/strong></a>."
+          }
+        }
+      },
+      "block_order": ["announcement_1"]
+    },
+    "custom-header": {
+      "type": "custom-header",
+      "settings": {
+        "menu": "main-menu",
+        "utility_link_1_text": "Daily Wear Quiz",
+        "utility_link_2_text": "Rewards",
+        "sale_color": "#0074E0",
+        "sidebar_columns": 2,
+        "color_scheme": "scheme-1"
+      },
+      "blocks": {
+        "promo-1": {
+          "type": "mega-menu-promo",
+          "settings": {
+            "menu_item": "Featured",
+            "image": "shopify://shop_images/screenshot-2023-07-24-at-6-09-27-pm-mobile-header-navigation-drawer-371347.png",
+            "title": "Fabric Innovation",
+            "link_text": "Learn More"
+          }
+        },
+        "promo-2": {
+          "type": "mega-menu-promo",
+          "settings": {
+            "menu_item": "Featured",
+            "image": "shopify://shop_images/screenshot-2023-07-24-at-6-09-27-pm-mobile-header-navigation-drawer-371346.png",
+            "title": "Daily Wear Quiz",
+            "link_text": "Start Quiz"
+          }
+        }
+      },
+      "block_order": ["promo-1", "promo-2"]
+    }
+  },
+  "order": ["header-announcements", "custom-header"]
+}
