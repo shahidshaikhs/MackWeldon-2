@@ -1,0 +1,58 @@
+<style>
+  /* UGC Carousel — scoped overrides for the #WEARITWELL section */
+
+  /* Heading: Figma specifies 36px/40px, text block set to 2.5rem (40px) as closest option */
+  [id$="--ugc-carousel"] .group-block-content > .text-block:first-child,
+  [id$="--ugc-carousel"] .group-block-content > .text-block:first-child > * {
+    font-size: 36px !important;
+    line-height: 40px !important;
+    letter-spacing: 0.18px !important;
+  }
+
+  /* Subtitle link: underline on desktop */
+  [id$="--ugc-carousel"] .group-block-content > .text-block:nth-child(2) a {
+    text-decoration: underline;
+    text-decoration-color: currentcolor;
+  }
+
+  /* Shopping bag icon overlay on each card */
+  [id$="--ugc-carousel"] .card::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 18px;
+    height: 18px;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    background-image: url({{ 'frame-1331-3.svg' | asset_url }});
+    background-repeat: no-repeat;
+    background-size: 10px 12px;
+    background-position: center;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  /* Mobile overrides */
+  @media screen and (max-width: 749px) {
+    /* Heading: 24px/28px on mobile */
+    [id$="--ugc-carousel"] .group-block-content > .text-block:first-child,
+    [id$="--ugc-carousel"] .group-block-content > .text-block:first-child > * {
+      font-size: 24px !important;
+      line-height: 28px !important;
+      letter-spacing: 0.12px !important;
+    }
+
+    /* Subtitle: 14px/19px on mobile */
+    [id$="--ugc-carousel"] .group-block-content > .text-block:nth-child(2),
+    [id$="--ugc-carousel"] .group-block-content > .text-block:nth-child(2) > * {
+      font-size: 14px !important;
+      line-height: 19px !important;
+    }
+
+    /* Subtitle link: no underline on mobile */
+    [id$="--ugc-carousel"] .group-block-content > .text-block:nth-child(2) a {
+      text-decoration: none;
+    }
+  }
+</style>

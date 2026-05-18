@@ -108,10 +108,204 @@
           }
         }
       }
+    },
+    "ugc-carousel": {
+      "type": "carousel",
+      "settings": {
+        "columns": 5,
+        "mobile_columns": "2",
+        "section_width": "page-width",
+        "columns_gap": 8,
+        "color_scheme": "scheme-1",
+        "icons_style": "none",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      },
+      "blocks": {
+        "static-header": {
+          "type": "group",
+          "static": true,
+          "settings": {
+            "content_direction": "column",
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "flex-start",
+            "gap": 4,
+            "width": "fill",
+            "height": "fit",
+            "inherit_color_scheme": true,
+            "padding-block-start": 0,
+            "padding-block-end": 8,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "heading": {
+              "type": "text",
+              "settings": {
+                "text": "<p>#wearitwell<\/p>",
+                "type_preset": "custom",
+                "font": "var(--font-heading--family)",
+                "font_size": "2.5rem",
+                "line_height": "tight",
+                "letter_spacing": "normal",
+                "case": "uppercase",
+                "color": "var(--color-foreground-heading)",
+                "width": "fit-content"
+              }
+            },
+            "subtitle": {
+              "type": "text",
+              "settings": {
+                "text": "<p><a href=\"https:\/\/www.instagram.com\/mackweldon\/\" title=\"@MackWeldon\">@MackWeldon<\/a><\/p>",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "1.125rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "color": "var(--color-foreground)",
+                "width": "fit-content"
+              }
+            }
+          },
+          "block_order": ["heading", "subtitle"]
+        },
+        "static-carousel-content": {
+          "type": "_carousel-content",
+          "static": true,
+          "settings": {
+            "inherit_color_scheme": true,
+            "height": "fit",
+            "position": "top",
+            "border": "none",
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "card_1": {
+              "type": "_card",
+              "settings": {
+                "background_media": "image",
+                "background_image": "shopify:\/\/shop_images\/rectangle-541-mobile-ugc-carousel-I397620511550.jpg",
+                "aspect_ratio": "square",
+                "inherit_color_scheme": true,
+                "gap": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
+            },
+            "card_2": {
+              "type": "_card",
+              "settings": {
+                "background_media": "image",
+                "background_image": "shopify:\/\/shop_images\/rectangle-541-desktop-ugc-carousel-I39581995873.jpg",
+                "aspect_ratio": "square",
+                "inherit_color_scheme": true,
+                "gap": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
+            },
+            "card_3": {
+              "type": "_card",
+              "settings": {
+                "background_media": "image",
+                "background_image": "shopify:\/\/shop_images\/rectangle-541-desktop-ugc-carousel-I39581995876.jpg",
+                "aspect_ratio": "square",
+                "inherit_color_scheme": true,
+                "gap": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
+            },
+            "card_4": {
+              "type": "_card",
+              "settings": {
+                "background_media": "image",
+                "background_image": "shopify:\/\/shop_images\/rectangle-541-desktop-ugc-carousel-I39581995879.jpg",
+                "aspect_ratio": "square",
+                "inherit_color_scheme": true,
+                "gap": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
+            },
+            "card_5": {
+              "type": "_card",
+              "settings": {
+                "background_media": "image",
+                "background_image": "shopify:\/\/shop_images\/rectangle-541-desktop-ugc-carousel-I39581995882.jpg",
+                "aspect_ratio": "square",
+                "inherit_color_scheme": true,
+                "gap": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
+            },
+            "card_6": {
+              "type": "_card",
+              "settings": {
+                "background_media": "image",
+                "background_image": "shopify:\/\/shop_images\/rectangle-541-mobile-ugc-carousel-I397620511550.jpg",
+                "aspect_ratio": "square",
+                "inherit_color_scheme": true,
+                "gap": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
+            },
+            "card_7": {
+              "type": "_card",
+              "settings": {
+                "background_media": "image",
+                "background_image": "shopify:\/\/shop_images\/rectangle-541-desktop-ugc-carousel-I39581995873.jpg",
+                "aspect_ratio": "square",
+                "inherit_color_scheme": true,
+                "gap": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
+            },
+            "card_8": {
+              "type": "_card",
+              "settings": {
+                "background_media": "image",
+                "background_image": "shopify:\/\/shop_images\/rectangle-541-desktop-ugc-carousel-I39581995876.jpg",
+                "aspect_ratio": "square",
+                "inherit_color_scheme": true,
+                "gap": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
+            }
+          },
+          "block_order": ["card_1", "card_2", "card_3", "card_4", "card_5", "card_6", "card_7", "card_8"]
+        }
+      }
     }
   },
   "order": [
     "review_carousel",
-    "blog_posts"
+    "blog_posts",
+    "ugc-carousel"
   ]
 }
