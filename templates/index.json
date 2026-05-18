@@ -168,7 +168,10 @@
               }
             }
           },
-          "block_order": ["heading", "subtitle"]
+          "block_order": [
+            "heading",
+            "subtitle"
+          ]
         },
         "static-carousel-content": {
           "type": "_carousel-content",
@@ -298,7 +301,16 @@
               }
             }
           },
-          "block_order": ["card_1", "card_2", "card_3", "card_4", "card_5", "card_6", "card_7", "card_8"]
+          "block_order": [
+            "card_1",
+            "card_2",
+            "card_3",
+            "card_4",
+            "card_5",
+            "card_6",
+            "card_7",
+            "card_8"
+          ]
         }
       }
     }
