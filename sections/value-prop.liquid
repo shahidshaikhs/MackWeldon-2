@@ -1,0 +1,229 @@
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="value-prop section section--{{ section.settings.section_width }} spacing-style color-{{ section.settings.color_scheme }}"
+  style="{% render 'spacing-style', settings: section.settings %}"
+>
+  <div class="value-prop__container">
+    {% for block in section.blocks %}
+      <div class="value-prop__item" {{ block.shopify_attributes }}>
+        {% if block.settings.icon != blank %}
+          <div class="value-prop__icon">
+            <img
+              src="{{ block.settings.icon | image_url: width: 130 }}"
+              alt="{{ block.settings.heading | escape }}"
+              width="65"
+              height="65"
+              loading="lazy"
+            >
+          </div>
+        {% endif %}
+        <div class="value-prop__text">
+          {% if block.settings.heading != blank %}
+            <h3 class="value-prop__heading">{{ block.settings.heading | escape }}</h3>
+          {% endif %}
+          {% if block.settings.description != blank %}
+            <p class="value-prop__description">{{ block.settings.description | escape }}</p>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .value-prop__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .value-prop__item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .value-prop__icon {
+    flex-shrink: 0;
+    width: 65px;
+    height: 65px;
+  }
+
+  .value-prop__icon img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .value-prop__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .value-prop__heading {
+    font-family: var(--font-heading--family);
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 27px;
+    color: var(--color-foreground-heading);
+    margin: 0;
+  }
+
+  .value-prop__description {
+    font-family: var(--font-body--family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    color: var(--color-foreground);
+    margin: 0;
+    max-width: 224px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .value-prop__container {
+      overflow-x: auto;
+      justify-content: flex-start;
+      gap: 24px;
+      padding-inline: 16px;
+      scrollbar-width: none;
+    }
+
+    .value-prop__container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .value-prop__icon {
+      width: 55px;
+      height: 55px;
+    }
+
+    .value-prop__heading {
+      font-size: 16px;
+      line-height: 21px;
+    }
+
+    .value-prop__description {
+      font-size: 12px;
+      line-height: 17px;
+      max-width: 200px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.value_prop",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:content.appearance"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:settings.section_width",
+      "options": [
+        {
+          "value": "page-width",
+          "label": "t:options.page"
+        },
+        {
+          "value": "full-width",
+          "label": "t:options.full"
+        }
+      ],
+      "default": "full-width"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-7"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value-prop-item",
+      "name": "t:names.value_prop_item",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "t:settings.icon"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "t:settings.heading"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "t:names.description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.value_prop",
+      "category": "t:categories.other_sections",
+      "blocks": {
+        "block_1": {
+          "type": "value-prop-item",
+          "settings": {
+            "heading": "Try On Guarantee",
+            "description": "If you don't love your first pair of underwear, it's on us."
+          }
+        },
+        "block_2": {
+          "type": "value-prop-item",
+          "settings": {
+            "heading": "First Order Discount",
+            "description": "Save 20% on your first purchase."
+          }
+        },
+        "block_3": {
+          "type": "value-prop-item",
+          "settings": {
+            "heading": "Mack Weldon Rewards",
+            "description": "Stack up loyalty points and put them toward your next order."
+          }
+        }
+      },
+      "block_order": ["block_1", "block_2", "block_3"]
+    }
+  ]
+}
+{% endschema %}

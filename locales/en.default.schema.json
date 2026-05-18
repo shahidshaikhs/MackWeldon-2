@@ -436,7 +436,9 @@
     "video_section": "Video",
     "view_all_button": "View all",
     "pills": "Pills",
-    "comparison_slider": "Comparison slider"
+    "comparison_slider": "Comparison slider",
+    "value_prop": "Value prop",
+    "value_prop_item": "Value prop item"
   },
   "options": {
     "above_carousel": "Above carousel",
